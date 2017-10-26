@@ -1,0 +1,25 @@
+.navigation { 
+	position:fixed;
+	top:0;
+	width:100%;
+	overflow: auto;
+	
+  .menu {
+  	margin: 0 0 0 0;
+  	@include padding(0,0,0,0);
+    list-style: none;
+    background-color:$primary-color;
+    
+    .item {
+    	display:inline-block;
+    	
+      .link {
+     	@include links(#F86B4C,$white);
+     	@include padding(16px,16px,16px,16px);
+      	text-decoration: none;
+      	display:block;
+      	text-align:center;
+      }
+    }
+  }
+}
