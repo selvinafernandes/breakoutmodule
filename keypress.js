@@ -1,6 +1,6 @@
-var paddleKeypress = (function(Module) {
+var paddleKeypress = (function() {
 
-	Module.keypress = function(){
+	var keypress = function(){
 	document.addEventListener('keydown', function(e) {
 			if(e.keyCode == 37 ) {
 				leftPressed = true;
@@ -17,7 +17,9 @@ var paddleKeypress = (function(Module) {
 			}
 		},false);
 	}
-	return Module;
+	return {
+		keypress:keypress
+	}
 
-})(Module || {});
+})();
 

@@ -1,5 +1,6 @@
-var drawBricks = (function (Module) {
-	Module.dBricks = function() {
+var drawBricks = (function () {
+
+	dBricks = function() {
 		for (var column = 0;column < columnCount ; column++){
 			for( var row = 0; row < rowCount; row++){
 				if(bricks[column][row].status == 1) {
@@ -16,6 +17,8 @@ var drawBricks = (function (Module) {
 			}
 		}
 	}
-	return Module;
+	return {
+		dBricks:dBricks
+	}
 
-})(Module || {});
+})();

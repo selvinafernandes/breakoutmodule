@@ -1,6 +1,7 @@
-var detectCollision = (function (Module) {
+var detectCollision = (function () {
 
-	Module.collision = function() {
+	var collision = function() {	
+
 		for (var column = 0;column < columnCount ; column++){
 			for( var row = 0; row < rowCount; row++){
 				var brickNumber = bricks[column][row];
@@ -18,6 +19,10 @@ var detectCollision = (function (Module) {
 			}
 		}
 	}
+	
+	return {
+		collision:collision
+	}
 
-	return Module;
-})(Module || {});
+})();
+
