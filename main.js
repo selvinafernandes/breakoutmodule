@@ -4,82 +4,32 @@ var canvasContext = canvas.getContext('2d');
 var xAxis = canvas.width / 2;
 var yAxis = canvas.height - 50;
 var dx = 2;
-var dy = -2; 
-var paddleHeight = 20;
-var paddleWidth = 75;
-var paddleX = (canvas.width - paddleWidth ) / 2;
-var rightPressed = false;
-var leftPressed = false;
-var rowCount = 5;
-var columnCount = 5;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
-var bricks = [];
-var livesLeft = 4;
-var ballRadius = 10;
-var totalScore = 0;
+var dy = -2;
 
-var Module = (function () {
+var Module = (function() {
+	var bricks = [];
+	var rowCount = 5;
+	var columnCount = 5;
 
-	for(var column=0; column < columnCount; column++) {
-	    bricks[column] = [];
-	    for(var row=0; row < rowCount; row++) {
-	        bricks[column][row] = { x: 0, y: 0 ,status:1};
-	    }
+	for (var column = 0; column < columnCount; column++) {
+		bricks[column] = [];
+		for (var row = 0; row < rowCount; row++) {
+			bricks[column][row] = { x: 0, y: 0, status: 1 };
+		}
 	}
+
 	var draw = function() {
-	
 		canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-		paddleKeypress.keypress();
-		ball.drawBall();
-		drawPaddle.paddle();
-		drawBricks.dBricks();
-		detectCollision.collision();
-		score.drawScore();
-		drawLives.lives();
-	
-		if (xAxis + dx > canvas.width - ballRadius || xAxis + dx < ballRadius) {
-			dx = -dx;
-		}
+		canvasElements.Create(canvas, canvasContext);
+		canvasElements.Move(canvas, canvasContext);
+		canvasBricks.Create(canvas, canvasContext, rowCount, columnCount, bricks);
+		canvasBricks.CreateScore(canvas, canvasContext);
+		canvasBricks.Collision(rowCount, columnCount, bricks);
+	};
 
-		if (yAxis + dy < ballRadius) {
-			dy = -dy;
-		} else if (yAxis + dy > canvas.height - ballRadius) {
-			if (xAxis > paddleX && xAxis < paddleX + paddleWidth) {
-				if (yAxis = yAxis - paddleHeight) {
-					dy = -dy;
-				}
-			} else {
-				livesLeft--;
-				if(!livesLeft) {
-					alert("Game Over");
-					document.location.reload();
-				}else{
-					xAxis = canvas.width / 2;
-					yAxis = canvas.height - 50;
-					dx = 2;
-					dy = -2; 
-					paddleX = (canvas.width - paddleWidth ) / 2;
-				}
-			}
-		}
-
-		if (rightPressed && (paddleX < canvas.width - paddleWidth)) {
-			paddleX += 5;
-		} else if (leftPressed && (paddleX > 0)) {
-			paddleX -= 5;
-		}
-
-		xAxis += dx;
-		yAxis += dy;
-	}
 	return {
-		draw:draw
-	}
-
+		draw: draw
+	};
 })();
-// console.log(Module);
-setInterval(Module.draw,10);
+
+setInterval(Module.draw, 10);
